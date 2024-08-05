@@ -1,0 +1,47 @@
+same-languages:
+  - "en_AU"
+  - "en_CA"
+  - "en_UK"
+
+no-permission: "&cYou need the permission &e\"optimum.use\""
+need-add-spawners: "&cYou need add spawners in &e\"/vs add\""
+no-spawner-in-hand: "&cYou need have a spawner item in your hand"
+no-economy-found: "&cNo economy plugin found. Please use a vault compatible"
+sell: "&aItems selled &e%amount% for &6%price%$"
+cant-sell: "&cThis drop can't be selled"
+
+spawner:
+  amount: "&eAmount: &a%amount%"
+
+  zombie:
+    name: "&3&lZombie drop &7- &a&lSPAWNER"
+    lore:
+      - "&aEvery:"
+      - "&f60s &8-> &71x &fIngot ore"
+      - "&c2.5s  &8-> &71x &fRotten Flesh"
+
+  add: "&e%amount% spawners added!"
+
+inventory:
+  main:
+    spawner:
+      name: "&dSpawners"
+      lore:
+        - " "
+        - "&e Click here"
+        - "&e To see your spawners"
+        - " "
+    extra-items:
+      help:
+        name: "&eHelp"
+        lore:
+          - " "
+          - " &eClick in enderchest to"
+          - " &eSee all spawners"
+  spawner:
+    back:
+      name: "&cBack to main inventory"
+  drops:
+    back:
+      name: "&cBack to spawners inventory"
+  

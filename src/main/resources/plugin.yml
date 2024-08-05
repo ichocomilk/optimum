@@ -1,0 +1,13 @@
+name: Optimum
+main: site.ichocomilk.optimum.OptimumPlugin
+version: 0.0.1
+description: Virtual spawners
+website: www.ichocomilk.site
+authors: ["iChocoMilk"]
+softdepends: [Vault]
+
+commands:
+  vs:
+    description: "Optimum Virtual spawner command"
+  optimum:
+    description: "Optimum command"

@@ -1,0 +1,48 @@
+same-languages:
+  - "es_AR"
+  - "es_MX"
+  - "es_UR"
+  - "es_VE"
+
+no-permission: "&cNecesitas el permiso: &e\"optimum.use\""
+need-add-spawners: "&cNecesitas tener almenos 1 spawner. Añadelo con: &e\"/vs add\""
+no-spawner-in-hand: "&cNecesitas tener un item de spawner en tu mano"
+no-economy-found: "&cNo se ha encontrado un plugin de economia compatible con Vault"
+sell: "&e%amount% &aitems vendidos a &6%price%$"
+cant-sell: "&cEste drop no puede ser vendido"
+
+spawner:
+  amount: "&eCantidad: &a%amount%"
+
+  zombie:
+    name: "&3&lZombie drop &7- &a&lSPAWNER"
+    lore:
+      - "&aCada:"
+      - "&f60s &8-> &71x &fLingote de hierro"
+      - "&c2,5s  &8-> &71x &fCarne podrida"
+  
+  add: "&e%amount% spawners añadidos"
+
+inventory:
+  main:
+    spawner:
+      name: "&dSpawners"
+      lore:
+        - " "
+        - "&e Clic aquí para"
+        - "&e Ver tus spawners"
+        - " "
+    extra-items:
+      help:
+        name: "&eAyuda"
+        lore:
+          - " "
+          - " &eClic en el enderchest para"
+          - " &eVer todos tus spawners"
+  spawner:
+    back:
+      name: "&cVolver al menú principal"
+  drops:
+    back:
+      name: "&cBack al menú de spawners"
+  

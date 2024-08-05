@@ -1,0 +1,16 @@
+title: "&0&lOptimum spawners"
+rows: 6
+
+spawner:
+  type: "ENDER_CHEST"
+  slot: 20
+
+extra-items:
+  help:
+    default-lang: "en_US" # Remove to set name and lore per language
+    type: "BOOK"
+    slot: 49
+    # To force name and lore use:
+    #name: "&eHelp"
+    #lore:
+    # - "Help"

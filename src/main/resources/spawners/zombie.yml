@@ -1,0 +1,19 @@
+inventory-title: "&2&lZombie"
+
+# Item need to unlock the spawner
+unlock-item: "ROTTEN_FLESH"
+
+# Types: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+drops:
+  iron:
+    type: "IRON_INGOT"
+    max: 100 # How many items can store
+    amount: 1 # Amount to generate
+    seconds: 60 # Time to try generate the item
+    sell-price: 50 # Price per unit - Disable selling setting this in 0
+  potato:
+    type: "BAKED_POTATO"
+    max: 1000 # How many items can store
+    amount: 1 # Amount to generate
+    seconds: 3.5 # Time to try generate the item
+    sell-price: 0.5 # Price per unit - Disable selling setting this in 0

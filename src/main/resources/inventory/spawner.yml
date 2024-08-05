@@ -1,0 +1,6 @@
+title: "&0Spawner"
+rows: 6
+
+back:
+  type: "ARROW"
+  slot: 45

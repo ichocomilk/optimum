@@ -1,0 +1,23 @@
+lang:
+  per-player: true # Get player language and set messages
+  default-lang: "en_US" # if player lang isn't found
+
+# Nitrite - File storage (not for large scale)
+# Mongodb - For large scale
+database: "nitrite"
+
+nitrite:
+  user: "nitrite"
+  password: "mypass"
+
+# Click types:
+# DOUBLE_CLICK, DROP, LEFT, MIDDLE, NUMBER_KEY, RIGHT, SHIFT_LEFT, SHIFT_RIGHT, SWAP_OFFHAND, etc
+# Check all in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/inventory/ClickType.html
+#
+# Action:
+# SELL, GIVE, GIVE_HALF, GIVE_ALL
+spawner-click:
+  LEFT: "GIVE,1" # Give:Amount
+  RIGHT: "GIVE_HALF"
+  SHIFT_LEFT: "GIVE_ALL"
+  DROP: "SELL"
