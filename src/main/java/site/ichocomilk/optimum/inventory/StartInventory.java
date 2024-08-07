@@ -12,7 +12,6 @@ import org.bukkit.event.inventory.ClickType;
 
 import net.milkbowl.vault.economy.Economy;
 import site.ichocomilk.optimum.config.ConfigManager;
-import site.ichocomilk.optimum.config.langs.MessageManager;
 import site.ichocomilk.optimum.config.langs.Messages;
 import site.ichocomilk.optimum.inventory.creator.BuildeableInventoryCreator;
 import site.ichocomilk.optimum.inventory.creator.CacheableInventoryCreator;
@@ -25,7 +24,6 @@ import site.ichocomilk.optimum.inventory.utils.InventoryUtils;
 public final class StartInventory {
 
     private final ConfigManager manager ;
-    private final MessageManager message = new MessageManager();
     private final Economy economy;
 
     public StartInventory(ConfigManager manager, Economy economy) {
@@ -39,19 +37,19 @@ public final class StartInventory {
             spawnerNecesary = new HashMap<>(1),
             dropsNecesary = new HashMap<>(1);
 
-        final CacheableInventory main = new CacheableInventoryCreator(manager, message).create(
+        final CacheableInventory main = new CacheableInventoryCreator(manager).create(
             mainNecesary,
             "main",
             "spawner"
         );
 
-        final BuildeableInventory spawner = new BuildeableInventoryCreator(manager, message).create(
+        final BuildeableInventory spawner = new BuildeableInventoryCreator(manager).create(
             spawnerNecesary,
             "spawner",
             "back"
         );
 
-        final BuildeableInventory drops = new BuildeableInventoryCreator(manager, message).create(
+        final BuildeableInventory drops = new BuildeableInventoryCreator(manager).create(
             dropsNecesary,
             "drops",
             "back"

@@ -53,7 +53,9 @@ public final class AddSpawnerSubCommand {
     }
 
     private static void removeHandAndSendMsg(final PlayerSpawner spawner, final Player player, final ItemStack item) {
-        final String message = Messages.getString(player.spigot().getLocale(), "spawner.add").replace("%amount%", String.valueOf(item.getAmount()));
+        final String message = Messages.getString(player.spigot().getLocale(), "spawner.add")
+            .replace("%amount%", String.valueOf(item.getAmount()));
+    
         spawner.addSpawners(item.getAmount());
         player.sendMessage(message);
 

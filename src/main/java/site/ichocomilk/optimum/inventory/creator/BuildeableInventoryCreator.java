@@ -8,18 +8,16 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import site.ichocomilk.optimum.config.ConfigManager;
-import site.ichocomilk.optimum.config.langs.MessageManager;
+import site.ichocomilk.optimum.config.langs.MessageColor;
 import site.ichocomilk.optimum.inventory.data.BuildeableInventory;
 import site.ichocomilk.optimum.inventory.data.OptimumInventoryHolder;
 import site.ichocomilk.optimum.inventory.item.BuildeableItem;
 
 public final class BuildeableInventoryCreator {
     private final ConfigManager manager;
-    private final MessageManager message;
 
-    public BuildeableInventoryCreator(ConfigManager manager, MessageManager message) {
+    public BuildeableInventoryCreator(ConfigManager manager) {
         this.manager = manager;
-        this.message = message;
     }
 
     public BuildeableInventory create(
@@ -35,7 +33,7 @@ public final class BuildeableInventoryCreator {
             manager.getPlugin().getLogger().warning("Rows in " + inventoryName + " inventory are 0. Setting in 6");
             rows = 6;
         }
-        String title = message.color(config.get("title"));
+        String title = MessageColor.color(config.get("title"));
         if (title == null) {
             manager.getPlugin().getLogger().warning("The inventory " + inventoryName + " doesn't have a title. Change in the section \"title\"");
             title = inventoryName;

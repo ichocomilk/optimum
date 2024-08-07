@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import site.ichocomilk.optimum.config.ConfigManager;
-import site.ichocomilk.optimum.config.langs.MessageManager;
+import site.ichocomilk.optimum.config.langs.MessageColor;
 import site.ichocomilk.optimum.config.langs.Messages;
 import site.ichocomilk.optimum.inventory.data.CacheableInventory;
 import site.ichocomilk.optimum.inventory.data.OptimumInventoryHolder;
@@ -22,11 +22,9 @@ import site.ichocomilk.optimum.inventory.item.ItemUtils;
 public final class CacheableInventoryCreator {
     
     private final ConfigManager manager;
-    private final MessageManager message;
 
-    public CacheableInventoryCreator(ConfigManager manager, MessageManager message) {
+    public CacheableInventoryCreator(ConfigManager manager) {
         this.manager = manager;
-        this.message = message;
     }
 
     public CacheableInventory create(
@@ -42,7 +40,7 @@ public final class CacheableInventoryCreator {
             manager.getPlugin().getLogger().warning("Rows in " + inventoryName + " inventory are 0. Setting in 6");
             rows = 6;
         }
-        String title = message.color(config.get("title"));
+        String title = MessageColor.color(config.get("title"));
         if (title == null) {
             manager.getPlugin().getLogger().warning("The inventory " + inventoryName + " doesn't have a title. Change in the section \"title\"");
             title = inventoryName;

@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 
-public final class MessageManager {
+public final class MessageColor {
 
-    public String color(final Object object) {
+    public static String color(final Object object) {
         if (object == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public final class MessageManager {
         return IridiumColorAPI.process(message);
     }
 
-    public List<String> colorList(final Object object) {
+    public static List<String> colorList(final Object object) {
         if (object == null) {
             return null;
         }

@@ -14,8 +14,6 @@ import site.ichocomilk.optimum.config.ConfigManager;
 
 public final class StartLangs {
 
-    private final MessageManager message = new MessageManager();
-
     public void start(final ConfigManager manager) {
         final FileConfiguration config = manager.getPlugin().getConfig();
         final File langsFolder = getLangsFolder(manager);
@@ -115,7 +113,7 @@ public final class StartLangs {
             }
             final Object value = lang.get(key);
             if (!(value instanceof MemorySection)) {
-                messages.put(key, message.color(value));
+                messages.put(key, MessageColor.color(value));
                 continue;
             }
             addMemorySection(
@@ -130,8 +128,7 @@ public final class StartLangs {
 
     private void addMemorySection(
         String key,
-        final Set<Entry<String,
-        Object>> map,
+        final Set<Entry<String,Object>> map,
         final Map<String, Object> output,
         final boolean inventorySection
     ) {
@@ -141,13 +138,13 @@ public final class StartLangs {
             final Object value = entry.getValue();
             if (inventorySection) {
                 if (value instanceof List) {
-                    output.put(key + entry.getKey(), message.colorList(value));
+                    output.put(key + entry.getKey(), MessageColor.colorList(value));
                     continue;
                 }
             }
 
             if (!(value instanceof MemorySection)) {
-                output.put(key + entry.getKey(), message.color(value));
+                output.put(key + entry.getKey(), MessageColor.color(value));
                 continue;
             }
             addMemorySection(

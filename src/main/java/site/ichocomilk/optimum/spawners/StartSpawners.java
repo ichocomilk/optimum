@@ -11,13 +11,12 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import site.ichocomilk.optimum.config.ConfigManager;
-import site.ichocomilk.optimum.config.langs.MessageManager;
+import site.ichocomilk.optimum.config.langs.MessageColor;
 import site.ichocomilk.optimum.spawners.data.Drop;
 import site.ichocomilk.optimum.spawners.data.Spawner;
 
 public final class StartSpawners {
 
-    private final MessageManager message = new MessageManager();
     private final ConfigManager manager;
 
     public StartSpawners(ConfigManager manager) {
@@ -33,7 +32,7 @@ public final class StartSpawners {
         }
         String defaultTitle = null;
         if (!manager.getPlugin().getConfig().getBoolean("spawners.invididual-inventory-name")) {
-            defaultTitle = message.color(manager.getPlugin().getConfig().getString("spawners.inventory-name"));
+            defaultTitle = MessageColor.color(manager.getPlugin().getConfig().getString("spawners.inventory-name"));
         }
 
         File[] files = spawnersFolder.listFiles();
@@ -75,7 +74,7 @@ public final class StartSpawners {
             manager.getPlugin().getLogger().warning("The material " + type + " for the spawner inventory doesn't exist. Check in spawners folder the file " + fileName + " in the section \"spawner-type\"");
             material = Material.STONE;
         }
-        String title = (defaultTitle == null) ? message.color(spawner.getString("inventory-title")) : defaultTitle;
+        String title = (defaultTitle == null) ? MessageColor.color(spawner.getString("inventory-title")) : defaultTitle;
         if (title == null) {
             manager.getPlugin().getLogger().warning("The inventory name of the spawner " + fileName + " doesn't exist. Using: " + fileName + ". Change in the section \"inventory-title\"");
             title = fileName;

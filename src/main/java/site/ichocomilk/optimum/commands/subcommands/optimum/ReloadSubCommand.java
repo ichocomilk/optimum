@@ -16,6 +16,7 @@ public class ReloadSubCommand {
         try {
             plugin.reload(option);
         } catch (Exception e) {
+            plugin.clearData();
             sender.sendMessage("§cError reloading the plugin. Try fix the configuration and reload the plugin");
             return;
         }
