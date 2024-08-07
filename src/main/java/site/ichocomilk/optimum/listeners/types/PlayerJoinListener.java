@@ -1,15 +1,16 @@
 package site.ichocomilk.optimum.listeners.types;
 
-import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import site.ichocomilk.optimum.database.Database;
+import site.ichocomilk.optimum.database.OptimumStorage;
+import site.ichocomilk.optimum.database.PlayerData;
 import site.ichocomilk.optimum.listeners.EventListener;
 import site.ichocomilk.optimum.listeners.ListenerData;
-import site.ichocomilk.optimum.spawners.SpawnerStorage;
-import site.ichocomilk.optimum.spawners.data.player.PlayerSpawner;
 
 public final class PlayerJoinListener implements EventListener {
 
@@ -21,11 +22,17 @@ public final class PlayerJoinListener implements EventListener {
 
     @ListenerData(event = PlayerJoinEvent.class)
     public void handle(Event uncheckEvent) {
-        final PlayerJoinEvent event = (PlayerJoinEvent)uncheckEvent;
-            final List<PlayerSpawner> spawners = database.get(event.getPlayer().getName());
-            if (spawners == null) {
+        if (database == null) {
+            return;
+        }
+
+        final Player player = ((PlayerJoinEvent)uncheckEvent).getPlayer();
+        CompletableFuture.runAsync(() -> {
+            final PlayerData data = database.get(player.getName());
+            if (data == null) {
                 return;
             }
-            SpawnerStorage.getStorage().add(event.getPlayer(), spawners);
+            OptimumStorage.getStorage().getPlayers().put(player.getUniqueId(), data);
+        });
     }
 }

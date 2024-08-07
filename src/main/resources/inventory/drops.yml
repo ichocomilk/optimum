@@ -4,3 +4,12 @@ rows: 6
 back:
   type: "ARROW"
   slot: 45
+
+extra-items:
+  help:
+    type: "BOOK"
+    slot: 49
+    # To force name and lore use:
+    #name: "&eHelp"
+    #lore:
+    # - "Help"

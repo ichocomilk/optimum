@@ -5,13 +5,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import site.ichocomilk.optimum.commands.subcommands.AddSpawnerSubCommand;
+import site.ichocomilk.optimum.commands.subcommands.virtualspawner.AddSpawnerSubCommand;
 import site.ichocomilk.optimum.config.langs.Messages;
 import site.ichocomilk.optimum.inventory.InventoryStorage;
 
 public final class VirtualSpawnerCommand implements CommandExecutor {
-
-    private final AddSpawnerSubCommand add = new AddSpawnerSubCommand();
 
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
@@ -33,7 +31,7 @@ public final class VirtualSpawnerCommand implements CommandExecutor {
     
         switch (args[0].toLowerCase()) {
             case "add":
-                add.addSpawner(player);
+                AddSpawnerSubCommand.addSpawner(player);
                 break;
             case "open":
                 InventoryStorage.getStorage().getMain().open(player);    

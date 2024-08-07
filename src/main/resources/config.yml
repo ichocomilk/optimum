@@ -15,9 +15,16 @@ nitrite:
 # Check all in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/inventory/ClickType.html
 #
 # Action:
-# SELL, GIVE, GIVE_HALF, GIVE_ALL
+# SELL, GIVE, GIVE_HALF and GIVE_ALL
 spawner-click:
-  LEFT: "GIVE,1" # Give:Amount
+  LEFT: "GIVE,3" # Give:Amount
   RIGHT: "GIVE_HALF"
-  SHIFT_LEFT: "GIVE_ALL"
+  MIDDLE: "GIVE_ALL"
   DROP: "SELL"
+
+# Action:
+# LEVEL, LEVEL_HALF and LEVEL_MAX
+upgrader-click:
+  LEFT: "LEVEL,1" # Increase:Amount
+  RIGHT: "LEVEL_HALF"
+  MIDDLE: "LEVEL_MAX"

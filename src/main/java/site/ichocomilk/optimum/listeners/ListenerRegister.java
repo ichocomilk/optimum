@@ -27,10 +27,9 @@ public final class ListenerRegister {
         final Method[] methods = listener.getClass().getMethods();
         for (final Method method : methods) {
             final ListenerData data = method.getAnnotation(ListenerData.class);
-            if (data == null) {
-                continue;
+            if (data != null) {
+                return data;
             }
-            return data;
         }
         return null;
     }

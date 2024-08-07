@@ -51,7 +51,7 @@ public final class StartSpawners {
         }
 
         if (spawners.length <= 40) {
-            SpawnerStorage.setInstance(new SpawnerStorage(spawners, byName));
+            SpawnerStorage.setStorage(new SpawnerStorage(spawners, byName));
             return;        
         }
         // Sort for binary search
@@ -64,7 +64,7 @@ public final class StartSpawners {
             }
             return -1;
         });
-        SpawnerStorage.setInstance(new SpawnerStorage(spawners, byName));
+        SpawnerStorage.setStorage(new SpawnerStorage(spawners, byName));
     }
 
     private Spawner createSpawner(final String defaultTitle, final FileConfiguration spawner, final String fileName) {

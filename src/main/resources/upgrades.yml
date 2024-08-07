@@ -1,0 +1,19 @@
+booster:
+  max-level: 5
+  cost: 250 # Money
+
+  percentage-cost-increase-per-level: 10
+  upgrade-per-level: 25 # Increase 25% of item drops per level
+  permission: ""
+  enable: true
+  # Formula: amountToGenerate + ((upgradePerLevel * level) * amountToGenerate) / 100
+
+time-machine:
+  max-level: 5
+  cost: 350
+
+  percentage-cost-increase-per-level: 15
+  seconds-to-skip-per-level: 1 # Level 1: skip 1s, Level 2: skip 2s, and etc
+  permission: ""
+  enable: true
+  # Formula: level * seconds-to-skip

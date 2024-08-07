@@ -13,6 +13,7 @@ import site.ichocomilk.optimum.config.ConfigManager;
 import site.ichocomilk.optimum.config.langs.Messages;
 import site.ichocomilk.optimum.config.langs.StartLangs;
 import site.ichocomilk.optimum.database.Database;
+import site.ichocomilk.optimum.database.OptimumStorage;
 import site.ichocomilk.optimum.database.nitrite.StartNitrite;
 import site.ichocomilk.optimum.inventory.InventoryStorage;
 import site.ichocomilk.optimum.inventory.StartInventory;
@@ -23,8 +24,14 @@ import site.ichocomilk.optimum.listeners.types.PlayerJoinListener;
 import site.ichocomilk.optimum.listeners.types.PlayerQuitListener;
 import site.ichocomilk.optimum.spawners.SpawnerStorage;
 import site.ichocomilk.optimum.spawners.StartSpawners;
+import site.ichocomilk.optimum.upgrades.StartUpgrades;
+import site.ichocomilk.optimum.upgrades.UpgradeStorage;
 
 public final class OptimumPlugin extends JavaPlugin {
+
+    public static enum LOAD_OPTION {
+        ALL, ONLY_CONFIG
+    }
 
     private Database database;
     private Economy economy;
@@ -35,20 +42,16 @@ public final class OptimumPlugin extends JavaPlugin {
         if (economy == null) {
             getLogger().warning("Sell drops are disable, because don't found Vault or any economy plugin");
         }
-        try {
-            load();
-        } catch (Exception e) {
-            return;
-        }
 
         getCommand("vs").setExecutor(new VirtualSpawnerCommand());
         getCommand("optimum").setExecutor(new OptimumCommand(this));
 
-        final ListenerRegister listeners = new ListenerRegister(this);
-        listeners.register(new InventoryClickListener());
-        listeners.register(new InventoryDragListener());
-        listeners.register(new PlayerJoinListener(database));
-        listeners.register(new PlayerQuitListener(database));
+        try {   
+            start(LOAD_OPTION.ALL);
+        } catch (Exception e) {
+            getLogger().warning("Error loading the plugin. Try fix the error and execute /optimum reload");
+            return;
+        }
     }
 
     @Override
@@ -58,41 +61,49 @@ public final class OptimumPlugin extends JavaPlugin {
             database.close();
         }
         HandlerList.unregisterAll(this);
+        clearData();
+    }
+
+    private void clearData() {
+        OptimumStorage.getStorage().clear();
         InventoryStorage.setStorage(null);
         Messages.setInstance(null);
-        SpawnerStorage.setInstance(null);
+        SpawnerStorage.setStorage(null);
+        UpgradeStorage.setStorage(null);
     }
 
-    public void disable() {
-        setEnabled(false);
-    }
-
-    private Economy setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return null;
+    public void reload(final LOAD_OPTION option) throws Exception {
+        if (option == LOAD_OPTION.ALL) {
+            onDisable();
+        } else {
+            clearData();
         }
-        final RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return null;
-        }
-        return rsp.getProvider();
+        start(option);
     }
 
-    public void load() throws Exception {
+    private void start(final LOAD_OPTION option) throws Exception {
         final ConfigManager config = new ConfigManager(this);
         saveDefaultConfig();
+
         getLogger().info("");
         getLogger().info("  §6Optimum §7- §5SPAWNERS§r");
         printTime("  §bLangs", () -> new StartLangs().start(config));
         printTime("  §3Inventory", () -> new StartInventory(config, economy).start());
         printTime("  §9Spawners", () -> new StartSpawners(config).start());
-    
-        if (database != null) {
-            database.close();
+        printTime("  §5Upgrades", () -> new StartUpgrades().start(config));
+
+        if (option == LOAD_OPTION.ALL) {
+            printTime("  §dDatabase", () -> database = getConfig().getString("database").equalsIgnoreCase("nitrite")
+                ? new StartNitrite().create(new ConfigManager(this))
+                : null);
+
+            final ListenerRegister listeners = new ListenerRegister(this);
+            listeners.register(new InventoryClickListener());
+            listeners.register(new InventoryDragListener());
+            listeners.register(new PlayerJoinListener(database));
+            listeners.register(new PlayerQuitListener(database));
         }
-        printTime("  §5Database", () -> database = getConfig().getString("database").equalsIgnoreCase("nitrite")
-            ? new StartNitrite().create(config)
-            : null);
+
         getLogger().info("");
     }
 
@@ -106,5 +117,16 @@ public final class OptimumPlugin extends JavaPlugin {
             getLogger().log(Level.SEVERE, "Error loading " + startType + ". Error: ", e);
             throw e;
         }
+    }
+
+    private Economy setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return null;
+        }
+        final RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return null;
+        }
+        return rsp.getProvider();
     }
 }

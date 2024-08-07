@@ -44,4 +44,11 @@ inventory:
   drops:
     back:
       name: "&cBack to spawners inventory"
-  
+    extra-items:
+      help:
+        name: "&eHelp"
+        lore:
+          - "&bLeft click&7 -> &fGet 3"
+          - "&3Right click&7 -> &fGet half"
+          - "&9Middle click &7-> &fGet all"
+          - "&5Press Q &7-> &fSell all"

@@ -44,5 +44,12 @@ inventory:
       name: "&cVolver al menú principal"
   drops:
     back:
-      name: "&cBack al menú de spawners"
-  
+      name: "&cVolver al menú de spawners"
+    extra-items:
+      help:
+        name: "&eAyuda"
+        lore:
+          - "&bClic izquierdo&7 -> &fObten 3 drops"
+          - "&3Clic derecho&7 -> &fObten la mitad"
+          - "&9Rueda del ratón &7-> &fObten todo"
+          - "&5Presionando la Q &7-> &fVende todo"

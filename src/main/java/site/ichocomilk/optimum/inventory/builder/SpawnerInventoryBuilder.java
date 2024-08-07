@@ -8,11 +8,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import site.ichocomilk.optimum.config.langs.Messages;
+import site.ichocomilk.optimum.database.OptimumStorage;
+import site.ichocomilk.optimum.database.PlayerData;
 import site.ichocomilk.optimum.inventory.data.BuildeableInventory;
 import site.ichocomilk.optimum.inventory.data.OptimumInventoryHolder;
 import site.ichocomilk.optimum.inventory.item.ClickableItem;
 import site.ichocomilk.optimum.inventory.item.ItemUtils;
-import site.ichocomilk.optimum.spawners.SpawnerStorage;
 import site.ichocomilk.optimum.spawners.data.Spawner;
 import site.ichocomilk.optimum.spawners.data.player.PlayerSpawner;
 
@@ -21,11 +22,12 @@ public final class SpawnerInventoryBuilder {
     private static final DropInventoryBuilder DROP_INVENTORY_BUILDER = new DropInventoryBuilder();
 
     public void build(final Player player, final BuildeableInventory buildeableInventory, final BuildeableInventory dropInventory) {
-        final List<PlayerSpawner> spawners = SpawnerStorage.getStorage().get(player.getUniqueId());
-        if (spawners == null) {
+        final PlayerData data = OptimumStorage.getStorage().getPlayers().get(player.getUniqueId());
+        if (data == null) {
             Messages.send(player, "need-add-spawners");
             return;
         }
+        final List<PlayerSpawner> spawners = data.getSpawners();
         final OptimumInventoryHolder holder = new OptimumInventoryHolder();
         final Inventory inventory = Bukkit.createInventory(holder, buildeableInventory.rows() * 9, buildeableInventory.title());
         final String lang = player.spigot().getLocale();
@@ -48,7 +50,7 @@ public final class SpawnerInventoryBuilder {
 
             clickableItems[slot] = new ClickableItem(
                 slot,
-                (p) -> DROP_INVENTORY_BUILDER.build(player, spawner, dropInventory));
+                (p) -> DROP_INVENTORY_BUILDER.build(data, player, spawner, dropInventory));
             inventory.setItem(slot++, item);
         }
         for (final ClickableItem base : baseItems) {

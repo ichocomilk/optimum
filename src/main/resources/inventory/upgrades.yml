@@ -1,9 +1,17 @@
-title: "&0&lOptimum spawners"
+title: "&0Drops"
 rows: 6
 
-spawner:
-  type: "ENDER_CHEST"
-  slot: 20
+back:
+  type: "ARROW"
+  slot: 45
+
+booster:
+  type: "BEACON"
+  slot: 0
+
+time-machine:
+  type: "CLOCK"
+  slot: 1
 
 extra-items:
   help:

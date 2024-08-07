@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import site.ichocomilk.optimum.config.langs.Messages;
+import site.ichocomilk.optimum.database.PlayerData;
 import site.ichocomilk.optimum.inventory.InventoryStorage;
 import site.ichocomilk.optimum.inventory.data.BuildeableInventory;
 import site.ichocomilk.optimum.inventory.data.OptimumInventoryHolder;
@@ -33,7 +34,7 @@ public final class DropInventoryBuilder {
         }
     }
 
-    public void build(final Player player, final PlayerSpawner spawner, final BuildeableInventory dropInventory) {
+    public void build(final PlayerData data, final Player player, final PlayerSpawner spawner, final BuildeableInventory dropInventory) {
         final OptimumInventoryHolder holder = new OptimumInventoryHolder();
         final Inventory inventory = Bukkit.createInventory(
             holder,
@@ -52,7 +53,7 @@ public final class DropInventoryBuilder {
     
         int i = 0;
         for (final Drop drop : spawner.getSpawner().getDrops()) {
-            SpawnerUpdater.calculateDrop(time, drop, drops[i], spawner.getSpawnersAmount());
+            SpawnerUpdater.calculateDrop(time, data, drop, drops[i], spawner.getSpawnersAmount());
 
             final ItemStack item =  new ItemStack(drop.getMaterial());
             final ItemMeta meta = item.getItemMeta();

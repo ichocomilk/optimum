@@ -1,4 +1,4 @@
-package site.ichocomilk.optimum.commands.subcommands;
+package site.ichocomilk.optimum.commands.subcommands.virtualspawner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import site.ichocomilk.optimum.config.langs.Messages;
+import site.ichocomilk.optimum.database.OptimumStorage;
+import site.ichocomilk.optimum.database.PlayerData;
 import site.ichocomilk.optimum.spawners.SpawnerStorage;
 import site.ichocomilk.optimum.spawners.data.Spawner;
 import site.ichocomilk.optimum.spawners.data.player.PlayerSpawner;
 
 public final class AddSpawnerSubCommand {
 
-    public void addSpawner(final Player player) {
-        
+    public static void addSpawner(final Player player) {
         player.sendMessage(player.spigot().getLocale());
         
         final ItemStack item = player.getItemInHand();
@@ -31,27 +32,27 @@ public final class AddSpawnerSubCommand {
             return;
         }
 
-        List<PlayerSpawner> playerSpawners = SpawnerStorage.getStorage().get(player.getUniqueId());
-
-        if (playerSpawners == null) {
+        final PlayerData data = OptimumStorage.getStorage().getPlayers().get(player.getUniqueId());
+        if (data == null) {
+            final List<PlayerSpawner> spawners = new ArrayList<>(3);
             final PlayerSpawner playerSpawner = new PlayerSpawner(spawner);
-            playerSpawners = new ArrayList<>(3);
-            playerSpawners.add(playerSpawner);
-            SpawnerStorage.getStorage().add(player, playerSpawners);
+            spawners.add(playerSpawner);
+            OptimumStorage.getStorage().getPlayers().put(player.getUniqueId(), new PlayerData(spawners));
             removeHandAndSendMsg(playerSpawner, player, item);
             return;
         }
-        PlayerSpawner playerSpawner = getPlayerSpawner(playerSpawners, spawner.hashCode());
+        PlayerSpawner playerSpawner = getPlayerSpawner(data.getSpawners(), spawner.hashCode());
         if (playerSpawner != null) {
             removeHandAndSendMsg(playerSpawner, player, item);
             return;
         }
+        final List<PlayerSpawner> spawners = new ArrayList<>(3);
         playerSpawner = new PlayerSpawner(spawner);
-        playerSpawners.add(playerSpawner);
+        spawners.add(playerSpawner);
         removeHandAndSendMsg(playerSpawner, player, item);
     }
 
-    private void removeHandAndSendMsg(final PlayerSpawner spawner, final Player player, final ItemStack item) {
+    private static void removeHandAndSendMsg(final PlayerSpawner spawner, final Player player, final ItemStack item) {
         final String message = Messages.getString(player.spigot().getLocale(), "spawner.add").replace("%amount%", String.valueOf(item.getAmount()));
         spawner.addSpawners(item.getAmount());
         player.sendMessage(message);
@@ -59,7 +60,7 @@ public final class AddSpawnerSubCommand {
         player.setItemInHand(null);
     }
 
-    private Spawner getSpawnerByMaterial(final int material) {
+    private static Spawner getSpawnerByMaterial(final int material) {
         final Spawner[] spawners = SpawnerStorage.getStorage().getSpawners();
 
         if (spawners.length <= 40) {
@@ -89,7 +90,7 @@ public final class AddSpawnerSubCommand {
         return null;
     }
 
-    private PlayerSpawner getPlayerSpawner(final List<PlayerSpawner> spawners, final int material) {
+    private static PlayerSpawner getPlayerSpawner(final List<PlayerSpawner> spawners, final int material) {
         for (final PlayerSpawner spawner : spawners) {
             if (spawner != null && spawner.getSpawner().hashCode() == material) {
                 return spawner;

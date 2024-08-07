@@ -35,7 +35,9 @@ public final class ConfigManager {
         }
     }
     public void createIfAbsent(String directory, final String... files) {
-        if (directory != null && !directory.isEmpty()) {
+        if (directory == null) {
+            directory = "";
+        } else if (!directory.isEmpty()) {
             directory += '/';
         }
         for (final String f : files) {
