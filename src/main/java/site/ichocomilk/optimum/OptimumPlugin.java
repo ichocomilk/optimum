@@ -49,7 +49,7 @@ public final class OptimumPlugin extends JavaPlugin {
         try {   
             start(LOAD_OPTION.ALL);
         } catch (Exception e) {
-            clearData();
+            onDisable();
             getLogger().warning("Error loading the plugin. Try fix the error and execute /optimum reload");
             return;
         }
@@ -61,12 +61,12 @@ public final class OptimumPlugin extends JavaPlugin {
             database.saveAll();
             database.close();
         }
+        OptimumStorage.getStorage().clear();
         HandlerList.unregisterAll(this);
         clearData();
     }
 
     public void clearData() {
-        OptimumStorage.getStorage().clear();
         InventoryStorage.setStorage(null);
         Messages.setInstance(null);
         SpawnerStorage.setStorage(null);
